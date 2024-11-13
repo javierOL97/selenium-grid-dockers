@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>selenium-docker</name>
+	<name>selenium-grid-docker</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<cucumber.version>7.20.1</cucumber.version>
@@ -96,7 +96,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>selenium-docker</finalName>
+		<finalName>selenium-grid-docker</finalName>
 		<plugins>
 			<!-- To compile the source code using specific java version. also to
 			force IDE to change the settings -->
