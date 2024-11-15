@@ -1,7 +1,6 @@
 package browserManager;
 
-import singletonManager.SingletonFactory;
-import utils.GlobalPropertiesLoader;
+import utils.Keywords;
 
 public class DriverFactory {
 
@@ -14,7 +13,7 @@ public class DriverFactory {
 
 	public IBrowserManager getBrowserManager() {
 
-		switch (SingletonFactory.getSingletonInstance(GlobalPropertiesLoader.class).getBrowserName()) {
+		switch (System.getProperty(Keywords.BROWSER.toString())) {
 		case "chrome": {
 			if (chromeManager == null)
 				chromeManager = new ChromeManager();

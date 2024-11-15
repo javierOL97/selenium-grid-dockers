@@ -1,7 +1,7 @@
 Feature: Signup and Login functionalities.
 
   @Regression
-  Scenario Outline: Register successfully a new user 
+  Scenario Outline: Register successfully a new user
     Given User moves to signup-login page
     And enters his <name> and <email> in signup fields
     When User clicks on submit button and verify that "Enter Account Information" title is visible
@@ -12,7 +12,7 @@ Feature: Signup and Login functionalities.
     And User clicks continue button and Verifies that is logged with his <name>
     Then User clicks on Delete account button
     And Verifies the Delete account message is visible
-    
+
     Examples: 
       | name        | email               | gender   | password | lname    | company | address     | country         | state        | city          | zipcode | mobilenumber | dOb          |
       | "Francisco" | "frank@test.com"    | "Male"   | "pwd123" | "Ortiz"  | "AT"    | "Copey 608" | "United States" | "California" | "Los Angeles" | "03801" | "2122334419" | "01/01/2000" |

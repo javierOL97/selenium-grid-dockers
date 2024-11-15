@@ -20,7 +20,7 @@ import utils.Keywords;
 
 public class Hooks {
 
-	private WebDriver driver;
+	private volatile WebDriver driver;
 
 	@Before
 	public void driverSetUp() {
@@ -39,6 +39,8 @@ public class Hooks {
 	public void afterScenario() throws IOException {
 		driver.quit();
 		SingletonFactory.cleanObjectFactory();
+		//Suggest running the Garbage Collector.
+		System.gc();
 	}
 
 	@AfterStep

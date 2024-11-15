@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>selenium-docker</name>
+	<name>selenium-grid-docker</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<cucumber.version>7.20.1</cucumber.version>
@@ -88,15 +88,11 @@
 			<version>${testng.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>Agilethought</groupId>
-			<artifactId>CucumberFramework</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
-		<finalName>selenium-docker</finalName>
+		<finalName>selenium-grid-docker</finalName>
 		<plugins>
 			<!-- To compile the source code using specific java version. also to
 			force IDE to change the settings -->
@@ -117,9 +113,10 @@
 				<configuration>
 					<systemPropertyVariables>
 						<browser>chrome</browser>
+						<selenium.grid.enabled>false</selenium.grid.enabled>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<file>test-suite.xml</file>
+						<file>test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
 					<threadCount>1</threadCount>
 					<reportsDirectory>target/test-output</reportsDirectory>

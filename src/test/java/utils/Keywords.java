@@ -26,7 +26,8 @@ public enum Keywords {
 	CVV("111"),
 	MALE("male"),
 	SUCCESS("SUCCESS"),
-	FAILED("FAILED")
+	FAILED("FAILED"),
+	REMOTEURL("http://localhost:4444/wd/hub")
 	;
 	
 	private final String value;
