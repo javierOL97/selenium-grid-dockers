@@ -116,7 +116,7 @@
 						<selenium.grid.enabled>true</selenium.grid.enabled>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<file>/selenium-grid-docker/src/test/resources/test-suites/signup-test.xml</file>
+						<file>src/test/resources/test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
 					<threadCount>2</threadCount>
 					<reportsDirectory>test-output</reportsDirectory>
