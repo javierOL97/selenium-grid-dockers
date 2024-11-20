@@ -111,15 +111,15 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
 				<configuration>
-					<systemPropertyVariables>
-						<browser>chrome</browser>
-						<selenium.grid.enabled>false</selenium.grid.enabled>
-					</systemPropertyVariables>
+					<!--systemPropertyVariables>
+						<browser>firefox</browser>
+						<selenium.grid.enabled>true</selenium.grid.enabled>
+					</systemPropertyVariables-->
 					<suiteXmlFiles>
 						<file>test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
-					<threadCount>1</threadCount>
-					<reportsDirectory>target/test-output</reportsDirectory>
+					<threadCount>2</threadCount>
+					<reportsDirectory>test-output</reportsDirectory>
 				</configuration>
 			</plugin>
 			<!-- To copy all the dependencies to run our tests as part of "mvn

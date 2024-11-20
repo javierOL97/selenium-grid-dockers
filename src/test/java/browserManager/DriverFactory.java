@@ -1,6 +1,8 @@
 package browserManager;
 
-import utils.Keywords;
+import singletonManager.SingletonFactory;
+import utils.FWLogger;
+import utils.GlobalPropertiesLoader;
 
 public class DriverFactory {
 
@@ -13,7 +15,7 @@ public class DriverFactory {
 
 	public IBrowserManager getBrowserManager() {
 
-		switch (System.getProperty(Keywords.BROWSER.toString())) {
+		switch (SingletonFactory.getSingletonInstance(GlobalPropertiesLoader.class).getBrowserName()) {
 		case "chrome": {
 			if (chromeManager == null)
 				chromeManager = new ChromeManager();
@@ -25,6 +27,7 @@ public class DriverFactory {
 			return firefoxManager;
 		}
 		default:
+			FWLogger.error("Invalid browser, please check global.properties file");
 			throw new IllegalArgumentException("Invalid browser, please check global.properties file");
 		}
 	}

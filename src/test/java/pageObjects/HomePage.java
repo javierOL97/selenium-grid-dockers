@@ -63,6 +63,7 @@ public class HomePage {
 
 	public void moveToLoginPage() {
 		actions.clickElement(signLoginButton);
+		
 	}
 
 	public void deleteAccount() {

@@ -1,33 +1,27 @@
 package utils;
 
 public enum Keywords {
-
-	EMAIL("email"),
-	PASSWORD("password"),
-	URL("url"),
+	//Config Keywords
+	REMOTEURL("http://localhost:4444/wd/hub"),
+	SELENIUM_GRID_ENABLED("selenium.grid.enabled"),
+	URL("application.url"),
 	BROWSER("browser"),
 	CHROME("chrome"),
+	FIREFOX("firefox"),
+	//Form Keywords
+	EMAIL("email"),
+	PASSWORD("password"),
 	FEMALE("female"),
 	NAME("Name"),
 	LNAME("LastName"),
 	DOB("DoB"),
 	GENDER("Gender"),
-	ZIPCODE("ZipCode"),
-	STATE("State"),
-	CITY("City"),
-	MUNICIPALITY("Municipality"),
-	SETTLEMENT("Settlement"),
-	STREET("Street"),
-	NUMBER("Number"),
-	ALIAS("TestAddress"),
-	CELLNUMBER("6691794419"),
 	LADA("669"),
-	PHONENUMBER("1794419"),
-	CVV("111"),
 	MALE("male"),
+	
 	SUCCESS("SUCCESS"),
 	FAILED("FAILED"),
-	REMOTEURL("http://localhost:4444/wd/hub")
+	
 	;
 	
 	private final String value;
