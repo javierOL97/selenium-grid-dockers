@@ -112,11 +112,11 @@
 				<version>${maven.surefire.version}</version>
 				<configuration>
 						<systemPropertyVariables>
-						<browser>firefox</browser>
+						<browser>chrome</browser>
 						<selenium.grid.enabled>true</selenium.grid.enabled>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<file>test-suites/signup-test.xml</file>
+						<file>/selenium-grid-docker/src/test/resources/test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
 					<threadCount>2</threadCount>
 					<reportsDirectory>test-output</reportsDirectory>
