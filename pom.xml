@@ -88,11 +88,7 @@
 			<version>${testng.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>Agilethought</groupId>
-			<artifactId>CucumberFramework</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -115,14 +111,15 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
 				<configuration>
-					<systemPropertyVariables>
+						<systemPropertyVariables>
 						<browser>chrome</browser>
+						<selenium.grid.enabled>true</selenium.grid.enabled>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<file>test-suite.xml</file>
+						<file>src/test/resources/test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
-					<threadCount>1</threadCount>
-					<reportsDirectory>target/test-output</reportsDirectory>
+					<threadCount>2</threadCount>
+					<reportsDirectory>test-output</reportsDirectory>
 				</configuration>
 			</plugin>
 			<!-- To copy all the dependencies to run our tests as part of "mvn

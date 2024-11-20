@@ -1,5 +1,8 @@
 package runners;
 
+import org.testng.annotations.Test;
+import org.testng.annotations.DataProvider;
+
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
@@ -10,6 +13,12 @@ import io.cucumber.testng.CucumberOptions;
 		// plugin =// {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 		
 		dryRun = false)
-public class TestRunner extends AbstractTestNGCucumberTests {
-
+@Test
+public class RegressionRunner extends AbstractTestNGCucumberTests {
+	@Override
+	@DataProvider(parallel = true)
+	public Object[][] scenarios() {
+		return super.scenarios();
+	}
 }
+ 

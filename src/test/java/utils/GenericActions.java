@@ -1,10 +1,7 @@
 package utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.NoSuchElementException;
-import java.util.Properties;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -28,6 +25,10 @@ public class GenericActions {
 
 	public WebElement getWebElement(By locator) {
 		return driver.findElement(locator);
+	}
+	
+	public boolean isElementVisible(By locator) {
+		return getWebElement(locator).isDisplayed();
 	}
 
 	// WaitMethods
@@ -75,19 +76,6 @@ public class GenericActions {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	// GetProperties
-	public String getProperty(String property) {
-		Properties prop = new Properties();
-		
-		try {
-			FileInputStream fis = new FileInputStream("src/test/resources/global.properties");
-			prop.load(fis);
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to load global properties file, please check global.properties.");
-		}
-		return prop.getProperty(property);
 	}
 
 	// PopulateField

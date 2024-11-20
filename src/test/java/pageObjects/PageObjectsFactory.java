@@ -31,22 +31,21 @@ public class PageObjectsFactory implements IPageObject {
 	 */
 	@Override
 	public <T> T getPage(Class<T> c) {
-		synchronized (c) {
-			String key = c.toString();
-			Object instance = objectFactory.get(key);
-			if (instance == null) {
-				try {
-					Constructor<T> constructor = c.getDeclaredConstructor(WebDriver.class, GenericActions.class);
-					// Makes the constructor accessible if it is private.
-					instance = constructor.newInstance(driver, genericActions);
-					objectFactory.put(key, instance);
-				} catch (IllegalAccessException | InstantiationException | InvocationTargetException
-						| NoSuchMethodException e) {
-					throw new RuntimeException("Exception while creating singleton instance for class : " + key, e);
-				}
+		String key = c.toString();
+		Object instance = objectFactory.get(key);
+		if (instance == null) {
+			try {
+				Constructor<T> constructor = c.getDeclaredConstructor(WebDriver.class, GenericActions.class);
+				// Makes the constructor accessible if it is private.
+				instance = constructor.newInstance(driver, genericActions);
+				objectFactory.put(key, instance);
+			} catch (IllegalAccessException | InstantiationException | InvocationTargetException
+					| NoSuchMethodException e) {
+				throw new RuntimeException("Exception while creating singleton instance for class : " + key, e);
 			}
-			return c.cast(instance);
 		}
+		return c.cast(instance);
+
 	}
 
 	public GenericActions getGenericActions() {

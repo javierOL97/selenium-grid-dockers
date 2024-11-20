@@ -1,6 +1,7 @@
 package browserManager;
 
 import singletonManager.SingletonFactory;
+import utils.FWLogger;
 import utils.GlobalPropertiesLoader;
 
 public class DriverFactory {
@@ -26,6 +27,7 @@ public class DriverFactory {
 			return firefoxManager;
 		}
 		default:
+			FWLogger.error("Invalid browser, please check global.properties file");
 			throw new IllegalArgumentException("Invalid browser, please check global.properties file");
 		}
 	}
