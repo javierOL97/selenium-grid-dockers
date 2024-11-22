@@ -92,12 +92,6 @@
 
 	<build>
 		<finalName>selenium-grid-docker-frank</finalName>
-		<testSourceDirectory>src/main/java</testSourceDirectory>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
 		<plugins>
 			<!-- To compile the source code using specific java version. also to
 			force IDE to change the settings -->
@@ -117,10 +111,10 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
 				<configuration>
-					<systemPropertyVariables>
+					<!--systemPropertyVariables>
 						<browser>chrome</browser>
 						<selenium.grid.enabled>true</selenium.grid.enabled>
-					</systemPropertyVariables>
+					<systemPropertyVariab --> 
 					<suiteXmlFiles>
 						<file>src/main/resources/test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
@@ -151,7 +145,7 @@
 									<mainClass>org.testng.TestNG</mainClass>
 								</transformer>
 							</transformers>
-							<!-- Excluir duplicados innecesarios -->
+							<!-- Exclude unnecessary duplicates -->
 							<filters>
 								<filter>
 									<artifact>*:*</artifact>

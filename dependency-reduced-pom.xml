@@ -7,34 +7,24 @@
   <version>0.0.1-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <build>
-    <testSourceDirectory>src/main/java</testSourceDirectory>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
     <finalName>selenium-grid-docker-frank</finalName>
     <plugins>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.version}</version>
-        <configuration>
-          <systemPropertyVariables>
-            <browser>chrome</browser>
-            <selenium.grid.enabled>true</selenium.grid.enabled>
-          </systemPropertyVariables>
-          <suiteXmlFiles>
-            <file>src/main/resources/test-suites/signup-test.xml</file>
-          </suiteXmlFiles>
-          <threadCount>2</threadCount>
-          <reportsDirectory>test-output</reportsDirectory>
-        </configuration>
-      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven.compiler.version}</version>
         <configuration>
           <release>17</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.version}</version>
+        <configuration>
+          <suiteXmlFiles>
+            <file>src/main/resources/test-suites/signup-test.xml</file>
+          </suiteXmlFiles>
+          <threadCount>2</threadCount>
+          <reportsDirectory>test-output</reportsDirectory>
         </configuration>
       </plugin>
       <plugin>

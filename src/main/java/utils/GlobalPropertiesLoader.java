@@ -9,7 +9,8 @@ import java.util.Properties;
 public class GlobalPropertiesLoader {
 
 	private final Properties prop;
-	private static final String FILE_PROPERTIES_PATH = "src/main/resources/global.properties";
+	//private static final String FILE_PROPERTIES_PATH = "src/main/resources/global.properties";
+	private static final String FILE_PROPERTIES_PATH = "global.properties";
 	private static final String JAR_PROPERTIES_PATH = "/global.properties";
 
 	// GlobalProperties Singleton
