@@ -99,6 +99,17 @@
 			</resource>
 		</resources>
 		<plugins>
+			<!-- To compile the source code using specific java version. also to
+			force IDE to change the settings -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<release>17</release>
+				</configuration>
+			</plugin>
+
 			<!-- To run the tests using specific parameters, change thread
 			count, testng report output directory etc -->
 			<plugin>
@@ -118,19 +129,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- To compile the source code using specific java version. also to
-			force IDE to change the settings -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.version}</version>
-				<configuration>
-					<release>17</release>
-				</configuration>
-			</plugin>
-
-
-			<!-- Plugin para empaquetar el JAR -->
+			<!-- To create Fat JAR file with all dependencies-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
