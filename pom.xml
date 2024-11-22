@@ -70,7 +70,6 @@
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>${webdriver.manager.version}</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- To deserialize json into Java object or vice versa -->
@@ -78,7 +77,7 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Test framework -->
@@ -86,14 +85,39 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
-			<scope>test</scope>
+			<scope>compile</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
-		<finalName>selenium-grid-docker</finalName>
+		<finalName>selenium-grid-docker-frank</finalName>
+		<testSourceDirectory>src/main/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
+			<!-- To run the tests using specific parameters, change thread
+			count, testng report output directory etc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+				<configuration>
+					<systemPropertyVariables>
+						<browser>chrome</browser>
+						<selenium.grid.enabled>true</selenium.grid.enabled>
+					</systemPropertyVariables>
+					<suiteXmlFiles>
+						<file>src/main/resources/test-suites/signup-test.xml</file>
+					</suiteXmlFiles>
+					<threadCount>2</threadCount>
+					<reportsDirectory>test-output</reportsDirectory>
+				</configuration>
+			</plugin>
+
 			<!-- To compile the source code using specific java version. also to
 			force IDE to change the settings -->
 			<plugin>
@@ -104,84 +128,46 @@
 					<release>17</release>
 				</configuration>
 			</plugin>
-			<!-- To run the tests using specific parameters, change thread
-			count, testng report output directory etc -->
+
+
+			<!-- Plugin para empaquetar el JAR -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
-				<configuration>
-						<systemPropertyVariables>
-						<browser>chrome</browser>
-						<selenium.grid.enabled>true</selenium.grid.enabled>
-					</systemPropertyVariables>
-					<suiteXmlFiles>
-						<file>src/test/resources/test-suites/signup-test.xml</file>
-					</suiteXmlFiles>
-					<threadCount>2</threadCount>
-					<reportsDirectory>test-output</reportsDirectory>
-				</configuration>
-			</plugin>
-			<!-- To copy all the dependencies to run our tests as part of "mvn
-			package" -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>${maven.dependency.version}</version>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.4.0</version>
 				<executions>
 					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
+						<phase>package</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>shade</goal>
 						</goals>
 						<configuration>
 							<outputDirectory>
-								${package.directory}/libs
+								${package.directory}
 							</outputDirectory>
+							<!-- Clase principal para ejecutar el JAR -->
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.testng.TestNG</mainClass>
+								</transformer>
+							</transformers>
+							<!-- Excluir duplicados innecesarios -->
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- To package our page objects, test classes into jar -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>${maven.jar.version}</version>
-				<configuration>
-					<outputDirectory>${package.directory}</outputDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- To copy resources into the output directory -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>${maven.resources.plugin}</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${package.directory}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/test/resources</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+
 		</plugins>
 	</build>
 </project>
