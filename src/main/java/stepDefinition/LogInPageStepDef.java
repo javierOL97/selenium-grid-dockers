@@ -89,6 +89,7 @@ public class LogInPageStepDef {
 	public void verifies_the_delete_account_message_is_visible() {
 		actions.waitForElementVisibility(loginPage.deletedAccountMessage);
 		actions.clickElement(loginPage.continueButton);
+		actions.waitForElementVisibility(homePage.signLoginButton);
 	}
 
 }

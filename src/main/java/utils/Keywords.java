@@ -2,8 +2,9 @@ package utils;
 
 public enum Keywords {
 	//Config Keywords
-	REMOTEURL("http://localhost:4444/wd/hub"),
+	SELENIUM_GRID_URL_FORMAT("selenium.grid.urlFormat"),
 	SELENIUM_GRID_ENABLED("selenium.grid.enabled"),
+	SELENIUM_GRID_HUB_HOST("selenium.grid.hubHost"),
 	URL("application.url"),
 	BROWSER("browser"),
 	CHROME("chrome"),

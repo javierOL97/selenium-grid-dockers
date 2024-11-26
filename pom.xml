@@ -26,7 +26,7 @@
 		<maven.surefire.version>3.1.2</maven.surefire.version>
 		<maven.resources.plugin>3.3.1</maven.resources.plugin>
 		<!-- output directory -->
-		<package.directory>${project.build.directory}/docker-resources</package.directory>
+		<package.directory>${project.build.directory}/config</package.directory>
 	</properties>
 
 	<dependencies>
@@ -111,16 +111,46 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.version}</version>
 				<configuration>
-					<!--systemPropertyVariables>
+					<systemPropertyVariables>
+						
 						<browser>chrome</browser>
 						<selenium.grid.enabled>true</selenium.grid.enabled>
-					<systemPropertyVariab --> 
+						<selenium.grid.hubHost>localhost</selenium.grid.hubHost>
+						
+					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<file>src/main/resources/test-suites/signup-test.xml</file>
 					</suiteXmlFiles>
 					<threadCount>2</threadCount>
 					<reportsDirectory>test-output</reportsDirectory>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven.resources.plugin}</version>
+				<executions>
+					<execution>
+						<id>copy-config-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${package.directory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>global.properties</include>
+										<include>test-suites/**</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!-- To create Fat JAR file with all dependencies-->
@@ -135,6 +165,7 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							<finalName>selenium-grid-docker-frank</finalName>
 							<outputDirectory>
 								${package.directory}
 							</outputDirectory>

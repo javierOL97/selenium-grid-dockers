@@ -2,8 +2,10 @@ package browserManager;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
-import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,27 +19,35 @@ import utils.Keywords;
 
 public class ChromeManager implements IBrowserManager {
 	private WebDriver driver;
-	
+
 	@Override
 	public WebDriver getDriver() {
 		final GlobalPropertiesLoader prop = SingletonFactory.getSingletonInstance(GlobalPropertiesLoader.class);
-		
-		//If our selenium.grid.enabled System Property is true, test will be 
-		//executed using RemoteDriver.
+
+		// If our selenium.grid.enabled System Property is true, test will be
+		// executed using RemoteDriver.
 		if (driver == null && Boolean.valueOf(prop.getProperty(Keywords.SELENIUM_GRID_ENABLED.toString()))) {
-			Capabilities capabilities = new ChromeOptions();
+			ChromeOptions options = new ChromeOptions();
+			options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+			options.setPageLoadTimeout(Duration.of(15, ChronoUnit.SECONDS));
 			try {
-				driver = new RemoteWebDriver(new URL(Keywords.REMOTEURL.toString()), capabilities);
+				// Getting selenium grid URL from maven system properties.
+				String remoteURL = String.format(prop.getProperty(Keywords.SELENIUM_GRID_URL_FORMAT.toString()),
+						System.getProperty(Keywords.SELENIUM_GRID_HUB_HOST.toString()));
+
+				driver = new RemoteWebDriver(new URL(remoteURL), options);
 			} catch (MalformedURLException e) {
-				FWLogger.error("There's an error while creating RemoteDriver: " +e);
+				FWLogger.error("There's an error while creating RemoteDriver: " + e);
 			}
 		}
-		//If our selenium.grid.enabled System Property is true, test will be 
-		//executed using ChromeDriver.
-		else if(driver == null && !Boolean.valueOf(prop.getProperty(Keywords.SELENIUM_GRID_ENABLED.toString()))) {
+		// If our selenium.grid.enabled System Property is true, test will be
+		// executed using ChromeDriver.
+		else if (driver == null && !Boolean.valueOf(prop.getProperty(Keywords.SELENIUM_GRID_ENABLED.toString()))) {
 			WebDriverManager.chromedriver().setup();
+			WebDriverManager.chromedriver().timeout(0);
 			driver = new ChromeDriver();
-			}
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		}
 		return driver;
 	}
 

@@ -13,6 +13,7 @@ stepDefinition\Hooks.class
 stepDefinition\LogInPageStepDef.class
 runners\SmokeRunner.class
 utils\GlobalPropertiesLoader.class
+utils\GenericActions$1.class
 pageObjects\LoginPage.class
 singletonManager\SingletonFactory.class
 pageObjects\CartPage.class

@@ -10,14 +10,14 @@ public class GlobalPropertiesLoader {
 
 	private final Properties prop;
 	//private static final String FILE_PROPERTIES_PATH = "src/main/resources/global.properties";
-	private static final String FILE_PROPERTIES_PATH = "global.properties";
+	private static final String FILE_PROPERTIES_PATH = "config/global.properties";
 	private static final String JAR_PROPERTIES_PATH = "/global.properties";
 
 	// GlobalProperties Singleton
 	// Private constructor to prevent the class is instantiated outside this class
 	private GlobalPropertiesLoader() {
 
-		// This code part loads global.properties file. If we are executing our
+		// This constructor loads global.properties file. If we are executing our
 		// framework from eclipse or maven
 		// it will use FILE_PROPERTIES_PATH. If we execute our framework with our JAR
 		// file it will use
