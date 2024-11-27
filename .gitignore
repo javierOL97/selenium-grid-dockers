@@ -1,6 +1,10 @@
 **/result/
 **/target/
 **/test-output/
+**/.settings/
+
+
 **/*.log
 **/*.class
 **/*.lst
+**/*.html
