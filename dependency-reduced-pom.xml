@@ -20,12 +20,42 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven.surefire.version}</version>
         <configuration>
+          <systemPropertyVariables>
+            <browser>chrome</browser>
+            <selenium.grid.enabled>false</selenium.grid.enabled>
+            <selenium.grid.hubHost>localhost</selenium.grid.hubHost>
+          </systemPropertyVariables>
           <suiteXmlFiles>
             <file>src/main/resources/test-suites/signup-test.xml</file>
           </suiteXmlFiles>
           <threadCount>2</threadCount>
           <reportsDirectory>test-output</reportsDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.plugin}</version>
+        <executions>
+          <execution>
+            <id>copy-config-resources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${package.directory}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/resources</directory>
+                  <includes>
+                    <include>global.properties</include>
+                    <include>test-suites/**</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -37,6 +67,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <finalName>selenium-grid-docker-frank</finalName>
               <outputDirectory>${package.directory}</outputDirectory>
               <transformers>
                 <transformer>
@@ -65,7 +96,7 @@
     <maven.dependency.version>3.6.0</maven.dependency.version>
     <selenium.java.version>4.23.0</selenium.java.version>
     <webdriver.manager.version>5.9.2</webdriver.manager.version>
-    <package.directory>${project.build.directory}/docker-resources</package.directory>
+    <package.directory>${project.build.directory}/config</package.directory>
     <cucumber.testng.version>7.20.1</cucumber.testng.version>
     <jackson.version>2.17.2</jackson.version>
     <testng.version>7.10.2</testng.version>

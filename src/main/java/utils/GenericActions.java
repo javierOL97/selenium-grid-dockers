@@ -5,9 +5,11 @@ import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,12 +28,30 @@ public class GenericActions {
 	public WebElement getWebElement(By locator) {
 		return driver.findElement(locator);
 	}
-	
+
 	public boolean isElementVisible(By locator) {
 		return getWebElement(locator).isDisplayed();
 	}
 
-	// WaitMethods
+	public void waitForPageLoad() {
+		try {
+			wait.until(new ExpectedCondition<Boolean>() {
+				@Override
+				public Boolean apply(WebDriver webDriver) {
+					return ((JavascriptExecutor) webDriver).executeScript("return document.readyState")
+							.equals("complete");
+				}
+			});
+		} catch (TimeoutException e) {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("window.stop();");
+			FWLogger.debug("Load page timeout. Trying to stop reloading.");
+		}catch (Exception e) {
+			FWLogger.error("Stop Failed!");
+			throw e;
+		}
+	}
+
 	public void waitForElementPresence(By locator) {
 		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
@@ -69,7 +89,7 @@ public class GenericActions {
 		waitForElementVisibility(locator);
 		waitForElementInvisibility(locator);
 	}
-	
+
 	public void wait(int time) {
 		try {
 			Thread.sleep(time);
@@ -109,7 +129,7 @@ public class GenericActions {
 		action.moveToElement(driver.findElement(target)).perform();
 		action.pause(800).perform();
 	}
-	
+
 	public void moveToWebElementJs(By target) {
 		waitForElementVisibility(target);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -131,12 +151,11 @@ public class GenericActions {
 				isOptionSelected = (dropDown.getFirstSelectedOption().getText().equalsIgnoreCase(text));
 			}
 		} catch (Exception e) {
-			throw new NoSuchElementException("Select value not found: "+ text, e);
+			throw new NoSuchElementException("Select value not found: " + text, e);
 		}
-		
 
 	}
-	
+
 	public void selectDropDownValueByValue(By locator, int index) {
 		waitForElementClickable(locator);
 		WebElement element = driver.findElement(locator);
@@ -144,9 +163,9 @@ public class GenericActions {
 			Select dropDown = new Select(element);
 			dropDown.selectByIndex(index);
 		} catch (NoSuchElementException e) {
-			throw new NoSuchElementException("Select value not found: "+ index, e);
+			throw new NoSuchElementException("Select value not found: " + index, e);
 		}
-		
+
 	}
 
 	public boolean isOptionSelected(By locator, String text) {
