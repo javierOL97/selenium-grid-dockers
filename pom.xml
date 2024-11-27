@@ -114,7 +114,7 @@
 					<systemPropertyVariables>
 						
 						<browser>chrome</browser>
-						<selenium.grid.enabled>false</selenium.grid.enabled>
+						<selenium.grid.enabled>true</selenium.grid.enabled>
 						<selenium.grid.hubHost>localhost</selenium.grid.hubHost>
 						
 					</systemPropertyVariables>
