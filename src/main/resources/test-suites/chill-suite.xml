@@ -3,7 +3,7 @@
 <suite name="Chill" parallel="tests" thread-count="2">
 	<test name="ChillTest">
 		<classes>
-			<class name="runners.RegressionRunner"></class>
+			<class name="runners.SmokeRunner"></class>
 		</classes>
 	</test>
 </suite>
