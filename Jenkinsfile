@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build Image'){
             steps{
-                bat "docker build -t=javierol97/selenium-grid-docker"
+                bat "docker build -t=javierol97/selenium-grid-docker ."
             }
         }
 
