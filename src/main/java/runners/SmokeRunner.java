@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(features = { "classpath:features" }, 
 		glue = {"stepDefinition" },
 		monochrome = true,
-		tags = "@Smoke",
+		tags = "@Smoke and @SmokeFail",
 		// plugin =// {"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
 		
 		dryRun = false)
