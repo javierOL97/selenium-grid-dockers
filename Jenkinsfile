@@ -17,7 +17,11 @@ pipeline {
         }
 
         stage('Push Image'){
+        	environment{
+        		DOCKER_HUB = credentials('dockerhub-creds')
+        	}
             steps{
+            	bat 'docker login -u %DOCKER_HUB_USR% -p %DOCKER_HUB_PSW%'
                 bat "docker push javierol97/selenium-grid-docker"
             }
         }
@@ -25,7 +29,7 @@ pipeline {
 
     post{
         always {
-            echo "doing clean"
+            bat "docker logout"
         }
     }
 
