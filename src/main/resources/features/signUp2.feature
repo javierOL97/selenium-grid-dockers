@@ -1,14 +1,14 @@
 Feature: Signup and Login functionalities.
 
-  @Smoke
+  @Smoke @Regression
   Scenario: Move to login page
     Given User moves to signup-login page
 	
-	@Smoke
+	@Smoke @Regression
   Scenario: Move to login page
     Given User moves to signup-login page
     
-	@SmokeFail
+	@Smoke
   Scenario: Move to login page
     Given User moves to signup-login page
     Then User clicks on Delete account button
