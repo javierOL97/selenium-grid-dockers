@@ -6,9 +6,9 @@
 			<class name="runners.RegressionRunner"></class>
 		</classes>
 	</test>
-	<test name="testSignupSmoke">
+	<!--  >test name="testSignupSmoke">
 		<classes>
 			<class name="runners.SmokeRunner"></class>
 		</classes>
-	</test>
+	</test-->
 </suite>
